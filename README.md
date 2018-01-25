@@ -1,4 +1,4 @@
-# <img src="/media/doughnut.svg" width="30" /> Doughnut Cart
+# <img src="/doughnut.svg" width="30" /> Doughnut Cart
 
 ## Notes
 
