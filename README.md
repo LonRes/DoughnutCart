@@ -4,7 +4,7 @@
 
 ## Libraries
 
-Whilst you're free to choose the libraries you need to make the app functional &ndash; please include the following tasks as they are applicable to the work we do at LonRes:
+Whilst you're free to choose the libraries you need to make the app functional &ndash; please include the following libraries as they are applicable to the work we do at LonRes:
 
 * [React](https://github.com/facebook/react)
 * [Redux](https://github.com/reactjs/redux)
@@ -23,8 +23,11 @@ The shopping cart consist of 3 pages which can be seen in [the accompanying PDF]
 
 ## Requirements
 
+* Setup a simple API that enumerates [the doughnuts](/doughnuts.json) &ndash; but no other API endpoints;
+* Setup the build process that minifies code **only** when `NODE_ENV=production`;
 * Create the pages mentioned above using `react`, with [images for each doughnut](/media);
+* Implement basic CSS/SASS/[StyledComponents](https://github.com/styled-components/styled-components);
 * Basket count must be updated on-the-fly as you add, update and remove doughnuts;
 * Basket **must** persist on page refresh using a FE approach &mdash; `localStorage`, `indexedDb`, etc...;
-* Setup a simple API that enumerates [the doughnuts](/doughnuts.json) &ndash; but no other API endpoints;
+* Handle the potential failure of the AJAX request for fetching the doughnuts.
 * Setup unit-tests using AVA/Enzyme with `nyc` for code-coverage;
