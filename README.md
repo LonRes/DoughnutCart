@@ -1,4 +1,4 @@
-# <img src="/media/doughnut.svg" width="100" /> Doughnut Cart
+# <img src="/media/doughnut.svg" width="30" /> Doughnut Cart
 
 > Create a shopping cart for doughnuts using React, Redux, with associated unit-tests.
 
