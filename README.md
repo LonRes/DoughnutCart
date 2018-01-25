@@ -26,5 +26,5 @@ The shopping cart consist of 3 pages which can be seen in [the accompanying PDF]
 * Create the pages mentioned above using `react`, with [images for each doughnut](/media);
 * Basket count must be updated on-the-fly as you add, update and remove doughnuts;
 * Basket **must** persist on page refresh using a FE approach &mdash; `localStorage`, `indexedDb`, etc...;
-* Setup a simple API that enumerates [the doughnuts](/doughnuts.json);
+* Setup a simple API that enumerates [the doughnuts](/doughnuts.json) &ndash; but no other API endpoints;
 * Setup unit-tests using AVA/Enzyme with `nyc` for code-coverage;
