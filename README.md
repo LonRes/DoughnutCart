@@ -24,7 +24,7 @@ The shopping cart consist of 3 pages which can be seen in [the accompanying PDF]
 ## Requirements
 
 * Setup a simple API that enumerates [the doughnuts](/doughnuts.json) &ndash; but no other API endpoints;
-* Setup the build process that minifies code **only** when `NODE_ENV=production`;
+* Setup the build process with [watch](https://webpack.js.org/configuration/watch/) that minifies code **only** when `NODE_ENV=production`;
 * Create the pages mentioned above using `react`, with [images for each doughnut](/media);
 * Implement basic CSS/SASS/[StyledComponents](https://github.com/styled-components/styled-components);
 * Basket count must be updated on-the-fly as you add, update and remove doughnuts;
