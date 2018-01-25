@@ -1,6 +1,6 @@
 # <img src="/media/doughnut.svg" width="30" /> Doughnut Cart
 
-> Create a shopping cart for doughnuts using React, Redux, with associated unit-tests.
+> Create a shopping cart for doughnuts using React, Redux, with associated unit-tests in AVA/Enzyme.
 
 ## Libraries
 
@@ -24,6 +24,7 @@ The shopping cart consist of 3 pages which can be seen in [the accompanying PDF]
 ## Requirements
 
 * Setup a simple API that enumerates [the doughnuts](/doughnuts.json) &ndash; but no other API endpoints;
+* Use React Router's [BrowserRouter](https://reacttraining.com/react-router/web/api/BrowserRouter) to setup the routes for the 3 pages;
 * Setup the build process with [watch](https://webpack.js.org/configuration/watch/) that minifies code **only** when `NODE_ENV=production`;
 * Create the pages mentioned above using `react`, with [images for each doughnut](/media);
 * Implement basic CSS/SASS/[StyledComponents](https://github.com/styled-components/styled-components);
