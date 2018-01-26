@@ -1,6 +1,31 @@
-# <img src="/media/doughnut.svg" width="30" /> Doughnut Cart
+# <img src="/doughnut.svg" width="30" /> Doughnut Cart
 
 > Create a shopping cart for doughnuts using React, Redux, with associated unit-tests in AVA/Enzyme.
+
+## Notes by Ashton
+
+* [`render-prop`](https://ashtonsix.com/render-prop) connects Redux & React (created this weekend by myself)
+* Would've been nice if create-react-app was an option to save time setting up
+* First time using a code coverage tool
+* Didn't get around to handling network failures on the item details page (done everywhere else though)
+
+To get started:
+
+```sh
+npm run start:server
+```
+
+To enter develop mode (client rebuilds itself whenever the source changes) (in another terminal):
+
+```sh
+npm run start:client
+```
+
+To create a production ready build (with client-side code):
+
+```sh
+npm run build
+```
 
 ## Libraries
 
@@ -23,7 +48,7 @@ The shopping cart consist of 3 pages which can be seen in [the accompanying PDF]
 
 ## Requirements
 
-* Setup a simple API that enumerates [the doughnuts](/doughnuts.json) &ndash; but no other API endpoints;
+* Setup a simple API that enumerates [the doughnuts](/server/doughnuts.json) &ndash; but no other API endpoints;
 * Use React Router's [BrowserRouter](https://reacttraining.com/react-router/web/api/BrowserRouter) to setup the routes for the 3 pages;
 * Setup the build process with [watch](https://webpack.js.org/configuration/watch/) that minifies code **only** when `NODE_ENV=production`;
 * Create the pages mentioned above using `react`, with [images for each doughnut](/media);
