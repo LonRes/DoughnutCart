@@ -50,15 +50,17 @@ class App extends React.Component {
 }
 
 const loadDoughnuts = async () => {
-  let next = '0'
+  let page = 0
   const doughnuts = {}
-  while (next != null) {
-    const response = await fetch(`/doughnuts/${next}`)
-    const doughnut = await response.json()
-    doughnut.media = '/' + doughnut.url
-    delete doughnut.url
-    doughnuts[doughnut.id] = doughnut
-    next = doughnut.next
+  while (page != null) {
+    const response = await fetch(`/doughnuts/page/${page}`)
+    const {data, next} = await response.json()
+    for (const doughnut of data) {
+      doughnut.media = '/' + doughnut.url
+      delete doughnut.url
+      doughnuts[doughnut.id] = doughnut
+    }
+    page = next
   }
   return doughnuts
 }

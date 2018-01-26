@@ -9,13 +9,15 @@ const doughnuts = JSON.parse(
 )
 
 app.use(async (ctx, next) => {
-  const doughnutPath = /doughnuts\/(\d+)/
+  const doughnutPath = /doughnuts\/page\/(\d+)/
   if (doughnutPath.test(ctx.path)) {
     const index = Number(ctx.path.match(doughnutPath)[1])
-    const doughnut = {...doughnuts[index]}
-    if (doughnuts[index + 1]) doughnut.next = index + 1
+    const body = {
+      data: [{...doughnuts[index]}],
+      next: doughnuts[index + 1] ? index + 1 : null
+    }
 
-    ctx.response.body = doughnut
+    ctx.response.body = body
   } else {
     await next()
   }
