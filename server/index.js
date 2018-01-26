@@ -11,7 +11,7 @@ const doughnuts = JSON.parse(
 app.use(async (ctx, next) => {
   const doughnutPath = /doughnuts\/(\d+)/
   if (doughnutPath.test(ctx.path)) {
-    const index = ctx.path.match(doughnutPath)[1]
+    const index = Number(ctx.path.match(doughnutPath)[1])
     const doughnut = {...doughnuts[index]}
     if (doughnuts[index + 1]) doughnut.next = index + 1
 

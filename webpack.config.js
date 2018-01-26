@@ -17,7 +17,10 @@ const baseline = {
           loader: 'babel-loader',
           options: {
             presets: ['env', 'react'],
-            plugins: []
+            plugins: [
+              'transform-class-properties',
+              'transform-object-rest-spread'
+            ]
           }
         }
       }
