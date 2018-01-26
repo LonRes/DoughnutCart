@@ -15,6 +15,7 @@ class Item extends React.Component {
     // are displayed easily.
     // NOTE: default quantity to `0` if you'd like the control to be visible.
     const {id, name, description, price, media, quantity, withLink} = this.props
+    if (!id) return null
     return (
       <div>
         {name ? (

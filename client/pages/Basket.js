@@ -1,10 +1,10 @@
 import React from 'react'
 import RenderProp from 'render-prop'
-import loadDoughnuts from '../loadDoughnuts'
 import Store from '../Store'
 import Header from '../components/Header'
 import Content from '../components/Content'
 import Item from '../components/Item'
+import ReloadInterface from '../components/ReloadInterface'
 
 class BasketModel extends RenderProp {
   state = {basket: []}
@@ -13,7 +13,7 @@ class BasketModel extends RenderProp {
     this.subscribeTo(Store, this.update)
   }
   update() {
-    let {basket, loading, doughnuts} = Store.getState()
+    let {basket, doughnuts} = Store.getState()
 
     let failedToLoad = false
     const basketAndSink = []
@@ -25,13 +25,13 @@ class BasketModel extends RenderProp {
       }
     }
 
-    this.setState({basket: basketAndSink, loading, failedToLoad})
+    this.setState({basket: basketAndSink, failedToLoad})
   }
 }
 
 class BasketView extends React.Component {
   render() {
-    const {basket, loading, failedToLoad} = this.props
+    const {basket, failedToLoad} = this.props
     const total = basket.reduce((pv, v) => pv + v.price * v.quantity, 0)
     return (
       <div>
@@ -49,14 +49,14 @@ class BasketView extends React.Component {
               </li>
             ))}
           </ul>
-          {loading ? (
-            <div>Loading items...</div>
-          ) : failedToLoad ? (
-            <div>
-              <h2>Failed to load all items in basket</h2>
-              <button onClick={() => loadDoughnuts(0)}>Try again?</button>
-            </div>
-          ) : null}
+          <ReloadInterface
+            failed={failedToLoad}
+            text={{
+              active: <div>Loading items...</div>,
+              failed: 'Failed to load all items in basket',
+              action: 'Try again?'
+            }}
+          />
           <span>
             Total: <strong>£{total.toFixed(2)}</strong>
           </span>
@@ -68,12 +68,8 @@ class BasketView extends React.Component {
 
 const Basket = () => (
   <BasketModel
-    render={({basket, loading, failedToLoad}) => (
-      <BasketView
-        basket={basket}
-        loading={loading}
-        failedToLoad={failedToLoad}
-      />
+    render={({basket, failedToLoad}) => (
+      <BasketView basket={basket} failedToLoad={failedToLoad} />
     )}
   />
 )

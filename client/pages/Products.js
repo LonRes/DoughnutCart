@@ -1,31 +1,27 @@
 import React from 'react'
 import RenderProp from 'render-prop'
-import loadDoughnuts from '../loadDoughnuts'
 import Store from '../Store'
 import Header from '../components/Header'
 import Content from '../components/Content'
 import Item from '../components/Item'
+import ReloadInterface from '../components/ReloadInterface'
 
 class ProductsModel extends RenderProp {
   state = {products: []}
   didMount() {
     this.update = this.update.bind(this)
-    this.subscribeTo(Store, this.update, [
-      'doughnuts.{}.{}',
-      'failedToComplete',
-      'loading'
-    ])
+    this.subscribeTo(Store, this.update, ['doughnuts.{}.{}'])
   }
   update() {
-    const {doughnuts, failedToComplete, loading} = Store.getState()
+    const {doughnuts} = Store.getState()
     const products = Object.values(doughnuts).sort((a, b) => a.price - b.price)
-    this.setState({products, failedToComplete, loading})
+    this.setState({products})
   }
 }
 
 class ProductsView extends React.Component {
   render() {
-    const {products, failedToComplete, loading} = this.props
+    const {products} = this.props
 
     return (
       <div>
@@ -44,21 +40,23 @@ class ProductsView extends React.Component {
               </li>
             ))}
           </ul>
-          {loading ? (
-            <span>
-              Loading more delicious doughnuts...{' '}
-              <span role="img" aria-label="a very handsome-looking doughnut">
-                🍩
-              </span>
-            </span>
-          ) : failedToComplete ? (
-            <div>
-              <h2>Failed to load all the doughnuts!</h2>
-              <button onClick={() => loadDoughnuts(products.length)}>
-                Try again?
-              </button>
-            </div>
-          ) : null}
+          <ReloadInterface
+            text={{
+              active: (
+                <span>
+                  Loading more delicious doughnuts...{' '}
+                  <span
+                    role="img"
+                    aria-label="a very handsome-looking doughnut"
+                  >
+                    🍩
+                  </span>
+                </span>
+              ),
+              failed: 'Failed to load all the doughnuts!',
+              action: 'Try again?'
+            }}
+          />
         </Content>
       </div>
     )
@@ -67,13 +65,7 @@ class ProductsView extends React.Component {
 
 const Products = () => (
   <ProductsModel
-    render={({products, failedToComplete, loading}) => (
-      <ProductsView
-        products={products}
-        failedToComplete={failedToComplete}
-        loading={loading}
-      />
-    )}
+    render={({products}) => <ProductsView products={products} />}
   />
 )
 
