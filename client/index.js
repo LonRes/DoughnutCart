@@ -3,6 +3,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
 import {injectGlobal} from 'styled-components'
+import loadDoughnuts from './loadDoughnuts'
 import Store from './Store'
 import Basket from './pages/Basket'
 import ItemDetail from './pages/ItemDetail'
@@ -49,25 +50,8 @@ class App extends React.Component {
   }
 }
 
-const loadDoughnuts = async () => {
-  let page = 0
-  const doughnuts = {}
-  while (page != null) {
-    const response = await fetch(`/doughnuts/page/${page}`)
-    const {data, next} = await response.json()
-    for (const doughnut of data) {
-      doughnut.media = '/' + doughnut.url
-      delete doughnut.url
-      doughnuts[doughnut.id] = doughnut
-    }
-    page = next
-  }
-  return doughnuts
-}
-
 const main = async () => {
-  const doughnuts = await loadDoughnuts()
-  Store.dispatch({type: 'LOAD_DOUGHNUTS', payload: doughnuts})
+  loadDoughnuts()
   ReactDOM.render(<App />, document.getElementById('root'))
 }
 

@@ -1,5 +1,6 @@
 import React from 'react'
 import RenderProp from 'render-prop'
+import loadDoughnuts from '../loadDoughnuts'
 import Store from '../Store'
 import Header from '../components/Header'
 import Content from '../components/Content'
@@ -9,18 +10,23 @@ class ProductsModel extends RenderProp {
   state = {products: []}
   didMount() {
     this.update = this.update.bind(this)
-    this.subscribeTo(Store, this.update, 'doughnuts.{}.{}')
+    this.subscribeTo(Store, this.update, [
+      'doughnuts.{}.{}',
+      'failedToComplete',
+      'loading'
+    ])
   }
   update() {
-    const {doughnuts} = Store.getState()
+    const {doughnuts, failedToComplete, loading} = Store.getState()
     const products = Object.values(doughnuts).sort((a, b) => a.price - b.price)
-    this.setState({products})
+    this.setState({products, failedToComplete, loading})
   }
 }
 
 class ProductsView extends React.Component {
   render() {
-    const {products} = this.props
+    const {products, failedToComplete, loading} = this.props
+
     return (
       <div>
         <Header title="Products" />
@@ -38,6 +44,21 @@ class ProductsView extends React.Component {
               </li>
             ))}
           </ul>
+          {loading ? (
+            <span>
+              Loading more delicious doughnuts...{' '}
+              <span role="img" aria-label="a very handsome-looking doughnut">
+                🍩
+              </span>
+            </span>
+          ) : failedToComplete ? (
+            <div>
+              <h2>Failed to load all the doughnuts!</h2>
+              <button onClick={() => loadDoughnuts(products.length)}>
+                Try again?
+              </button>
+            </div>
+          ) : null}
         </Content>
       </div>
     )
@@ -46,7 +67,13 @@ class ProductsView extends React.Component {
 
 const Products = () => (
   <ProductsModel
-    render={({products}) => <ProductsView products={products} />}
+    render={({products, failedToComplete, loading}) => (
+      <ProductsView
+        products={products}
+        failedToComplete={failedToComplete}
+        loading={loading}
+      />
+    )}
   />
 )
 

@@ -5,9 +5,11 @@ const initialState = Object.assign(
     // by id, each doughnut has .id, .name, .description, .price, .media
     doughnuts: {},
     // .quantity, .id
-    basket: []
+    basket: [],
+    loading: false,
+    failedToComplete: false
   },
-  JSON.parse(window.sessionStorage.getItem('doughnuts') || '{}')
+  JSON.parse(window.sessionStorage.getItem('basket') || '{}')
 )
 
 // sensible alternatives include Immutable, custom helpers, and lots of "..."s.
@@ -17,7 +19,13 @@ const doughnutReducer = (state = initialState, action) => {
   state = veryLazyClone(state)
   switch (action.type) {
     case 'LOAD_DOUGHNUTS':
-      state.doughnuts = action.payload
+      state.loading = true
+      return state
+    case 'LOAD_DOUGHNUTS_FINISHED':
+      const {doughnuts, failedToComplete} = action.payload
+      Object.assign(state.doughnuts, doughnuts)
+      state.loading = false
+      state.failedToComplete = !!failedToComplete
       return state
     case 'UPDATE_QUANTITY':
       const {id, value: quantity} = action.payload
@@ -51,8 +59,9 @@ const DoughnutStore = createStore(doughnutReducer)
 // Middleware can add complexity, and it's often worth looking for a simpler way
 // to do something first.
 const cacheState = () => {
-  const state = DoughnutStore.getState()
-  window.sessionStorage.setItem('doughnuts', JSON.stringify(state))
+  const {basket} = DoughnutStore.getState()
+  const stateToCache = {basket}
+  window.sessionStorage.setItem('basket', JSON.stringify(stateToCache))
 }
 
 DoughnutStore.subscribe(cacheState)
