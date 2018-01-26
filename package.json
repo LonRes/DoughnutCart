@@ -6,7 +6,7 @@
     "build": "NODE_ENV=production && webpack",
     "start:client": "webpack",
     "start:server": "node server/index.js",
-    "test": "ava"
+    "test": "nyc ava"
   },
   "author": "Ashton Six <me@ashtonsix.com> (ashtonsix.com)",
   "private": true,
@@ -40,6 +40,7 @@
     "eslint-plugin-jsx-a11y": "^5.1.1",
     "eslint-plugin-react": "^7.5.1",
     "jsdom": "^11.6.1",
+    "nyc": "^11.4.1",
     "webpack": "^3.10.0"
   },
   "babel": {
