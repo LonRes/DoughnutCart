@@ -7,7 +7,7 @@ class QuantityTweaker extends React.Component {
     unflushedValue: null
   }
   // will become "getDerivedStateFromProps" in React 17
-  componentWillRecieveProps(nextProps) {
+  componentWillReceiveProps(nextProps) {
     // make sure the input reacts to external updates. it'd be worth considering
     // what to do if the value changes while the user is currently typing (UX)
     if (nextProps.value !== this.props.value) {
@@ -20,7 +20,7 @@ class QuantityTweaker extends React.Component {
 
     const changeAndFlushValue = value => {
       this.setState({unflushedValue: null})
-      onChange(null)
+      onChange(Number(value || 0))
     }
 
     const addOne = changeAndFlushValue.bind(null, value + 1)
@@ -36,15 +36,21 @@ class QuantityTweaker extends React.Component {
 
     return (
       <div>
-        <input value={unflushedValue || value} onChange={updateUnflushed}>
-          {value}
-        </input>
         {value === 0 ? (
           <button onClick={addOne}>Add</button>
         ) : (
           [
-            <button onClick={update}>Update</button>,
-            <button onClick={remove}>Remove</button>
+            <input
+              value={unflushedValue != null ? unflushedValue : value}
+              onChange={updateUnflushed}
+              key="input"
+            />,
+            <button onClick={update} key="update">
+              Update
+            </button>,
+            <button onClick={remove} key="remove">
+              Remove
+            </button>
           ]
         )}
       </div>

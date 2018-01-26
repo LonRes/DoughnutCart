@@ -14,7 +14,7 @@ class BasketModel extends RenderProp {
     let {basket, doughnuts} = Store.getState()
 
     const basketAndSink = []
-    for (const {id, quantity} in basket) {
+    for (const {id, quantity} of basket) {
       basketAndSink.push({...doughnuts[id], quantity})
     }
 
@@ -25,15 +25,14 @@ class BasketModel extends RenderProp {
 class BasketView extends React.Component {
   render() {
     const {basket} = this.props
-    const total = basket.reduce((pv, v) => pv + v, 0)
+    const total = basket.reduce((pv, v) => pv + v.price * v.quantity, 0)
     return (
       <div>
         <Header title="Basket" />
         <ul>
           {basket.map(({id, name, description, quantity = 0}) => (
-            <li>
+            <li key={id}>
               <Item
-                key={id}
                 id={id}
                 name={name}
                 description={description}
@@ -41,9 +40,9 @@ class BasketView extends React.Component {
               />
             </li>
           ))}
-        </ul>,
+        </ul>
         <span>
-          Total: <strong>{total}</strong>
+          Total: <strong>£{total.toFixed(2)}</strong>
         </span>
       </div>
     )

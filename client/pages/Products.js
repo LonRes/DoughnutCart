@@ -12,7 +12,8 @@ class ProductsModel extends RenderProp {
   }
   update() {
     const {doughnuts} = Store.getState()
-    this.setState({products: doughnuts})
+    const products = Object.values(doughnuts).sort((a, b) => a.price - b.price)
+    this.setState({products})
   }
 }
 

@@ -22,7 +22,7 @@ class HeaderView extends React.Component {
     return (
       <header>
         {title}
-        <Link to="/basket">Basket (${basket})</Link>
+        <Link to="/basket">Basket ({basket})</Link>
       </header>
     )
   }

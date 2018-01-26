@@ -19,17 +19,23 @@ const doughnutReducer = (state = initialState, action) => {
     case 'LOAD_DOUGHNUTS':
       state.doughnuts = action.payload
       return state
-    case 'BASKET/UPDATE_QUANTITY':
-      const {id, quantity} = action.payload
+    case 'UPDATE_QUANTITY':
+      const {id, value: quantity} = action.payload
 
+      let exists
       const nextBasket = []
       for (const item of state.basket) {
         // setting item quantity to 0 removes it from the basket
         if (item.id === id && quantity === 0) continue
         // update the matching item
-        if (item.id === id) item.quantity = quantity
+        if (item.id === id) {
+          exists = true
+          item.quantity = quantity
+        }
         nextBasket.push(item)
       }
+      // new items appear at bottom of shopping basket
+      if (!exists && quantity) nextBasket.push({id, quantity})
 
       state.basket = nextBasket
       return state

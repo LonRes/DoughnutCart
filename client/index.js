@@ -12,8 +12,8 @@ class App extends React.Component {
     return (
       <Router>
         <Switch>
-          <Route path="basket" component={Basket} />
-          <Route path="item/:item" component={ItemDetail} />
+          <Route path="/basket" component={Basket} />
+          <Route path="/item/:item" component={ItemDetail} />
           <Route component={Products} />
         </Switch>
       </Router>
@@ -23,13 +23,13 @@ class App extends React.Component {
 
 const loadDoughnuts = async () => {
   let next = '0'
-  const doughnuts = []
+  const doughnuts = {}
   while (next != null) {
     const response = await fetch(`/doughnuts/${next}`)
     const doughnut = await response.json()
     doughnut.media = doughnut.url
     delete doughnut.url
-    doughnuts.push(doughnut)
+    doughnuts[doughnut.id] = doughnut
     next = doughnut.next
   }
   return doughnuts
