@@ -11,6 +11,9 @@ const ImgWrapper = styled.div`
 
 class Item extends React.Component {
   render() {
+    // All props (except id) are optional, letting you customise how `Item`s
+    // are displayed easily.
+    // NOTE: default quantity to `0` if you'd like the control to be visible.
     const {id, name, description, price, media, quantity, withLink} = this.props
     return (
       <div>
