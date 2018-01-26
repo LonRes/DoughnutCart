@@ -50,7 +50,7 @@ class ReloadInterfaceView extends React.Component {
 }
 
 // text (all strings) = .active, .failed, .action
-// failed (optional bool, indicates whether *every* doughnut has loaded by default)
+// failed (optional bool, by default indicates whether *every* doughnut has loaded)
 const ReloadInterface = ({text, failed}) => (
   <ReloadInterfaceModel
     render={({page, failedToComplete, loading}) => (
