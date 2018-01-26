@@ -9,6 +9,24 @@
 * First time using a code coverage tool
 * Didn't get around to handling network failures on the item details page (done everywhere else though)
 
+To get started:
+
+```sh
+npm run start:server
+```
+
+To enter develop mode (client rebuilds itself whenever the source changes) (in another terminal):
+
+```sh
+npm run start:client
+```
+
+To create a production ready build (with client-side code):
+
+```sh
+npm run build
+```
+
 ## Libraries
 
 Whilst you're free to choose the libraries you need to make the app functional &ndash; please include the following libraries as they are applicable to the work we do at LonRes:
