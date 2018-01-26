@@ -70,4 +70,5 @@ const ItemDetail = () => (
   />
 )
 
+export {ItemDetailModel, ItemDetailView}
 export default ItemDetail

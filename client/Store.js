@@ -7,7 +7,7 @@ const initialState = Object.assign(
     // .quantity, .id
     basket: []
   },
-  JSON.parse(sessionStorage.getItem('doughnuts') || '{}')
+  JSON.parse(window.sessionStorage.getItem('doughnuts') || '{}')
 )
 
 // sensible alternatives include Immutable, custom helpers, and lots of "..."s.
@@ -52,7 +52,7 @@ const DoughnutStore = createStore(doughnutReducer)
 // to do something first.
 const cacheState = () => {
   const state = DoughnutStore.getState()
-  sessionStorage.setItem('doughnuts', JSON.stringify(state))
+  window.sessionStorage.setItem('doughnuts', JSON.stringify(state))
 }
 
 DoughnutStore.subscribe(cacheState)
