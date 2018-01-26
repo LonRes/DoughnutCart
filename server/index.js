@@ -1,6 +1,6 @@
 const fs = require('fs')
 const path = require('path')
-const serve = require('koa-static')
+const send = require('koa-send')
 const Koa = require('koa')
 const app = new Koa()
 
@@ -21,8 +21,22 @@ app.use(async (ctx, next) => {
   }
 })
 
-app.use(serve(path.join(__dirname, './static')))
-app.use(serve(path.join(__dirname, './static/build')))
+// required to prevent access to private files (eg, ".../.../secrets/aws.pem")
+const rootFolder = path.join(__dirname, 'static')
+
+const exists = check => {
+  check = path.join(rootFolder, check)
+  return new Promise(resolve => {
+    fs.stat(check, (err, stats) => {
+      resolve(!err && stats.isFile())
+    })
+  })
+}
+
+app.use(async ctx => {
+  const path = (await exists(ctx.path)) ? ctx.path : '/index.html'
+  await send(ctx, path, {root: rootFolder})
+})
 
 app.listen(3000)
 
