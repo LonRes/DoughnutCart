@@ -1,5 +1,6 @@
 import React from 'react'
 import RenderProp from 'render-prop'
+import loadDoughnuts from '../loadDoughnuts'
 import Store from '../Store'
 import Header from '../components/Header'
 import Content from '../components/Content'
@@ -12,20 +13,25 @@ class BasketModel extends RenderProp {
     this.subscribeTo(Store, this.update)
   }
   update() {
-    let {basket, doughnuts} = Store.getState()
+    let {basket, loading, doughnuts} = Store.getState()
 
+    let failedToLoad = false
     const basketAndSink = []
     for (const {id, quantity} of basket) {
-      basketAndSink.push({...doughnuts[id], quantity})
+      if (doughnuts[id]) {
+        basketAndSink.push({...doughnuts[id], quantity})
+      } else {
+        failedToLoad = true
+      }
     }
 
-    this.setState({basket: basketAndSink})
+    this.setState({basket: basketAndSink, loading, failedToLoad})
   }
 }
 
 class BasketView extends React.Component {
   render() {
-    const {basket} = this.props
+    const {basket, loading, failedToLoad} = this.props
     const total = basket.reduce((pv, v) => pv + v.price * v.quantity, 0)
     return (
       <div>
@@ -43,6 +49,14 @@ class BasketView extends React.Component {
               </li>
             ))}
           </ul>
+          {loading ? (
+            <div>Loading items...</div>
+          ) : failedToLoad ? (
+            <div>
+              <h2>Failed to load all items in basket</h2>
+              <button onClick={() => loadDoughnuts(0)}>Try again?</button>
+            </div>
+          ) : null}
           <span>
             Total: <strong>£{total.toFixed(2)}</strong>
           </span>
@@ -53,7 +67,15 @@ class BasketView extends React.Component {
 }
 
 const Basket = () => (
-  <BasketModel render={({basket}) => <BasketView basket={basket} />} />
+  <BasketModel
+    render={({basket, loading, failedToLoad}) => (
+      <BasketView
+        basket={basket}
+        loading={loading}
+        failedToLoad={failedToLoad}
+      />
+    )}
+  />
 )
 
 export default Basket

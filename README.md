@@ -7,6 +7,7 @@
 * [`render-prop`](https://ashtonsix.com/render-prop) connects Redux & React (created this weekend by myself)
 * Would've been nice if create-react-app was an option to save time setting up
 * First time using a code coverage tool
+* Didn't get around to handling network failures on the item details page (done everywhere else though)
 
 ## Libraries
 
