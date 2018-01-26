@@ -17,9 +17,10 @@ class ItemDetailModel extends RenderProp {
     this.update = this.update.bind(this)
     this.subscribeTo(Store, this.update)
   }
-  didUpdate() {
+  didUpdate(prevProps) {
+    const prevId = prevProps.match.params.item
     const id = this.props.match.params.item
-    if (id !== this.state.id) this.update()
+    if (id !== prevId) this.update()
   }
   update() {
     const id = this.props.match.params.item
