@@ -2,6 +2,7 @@ import React from 'react'
 import RenderProp from 'render-prop'
 import Store from '../Store'
 import Header from '../components/Header'
+import Content from '../components/Content'
 import Item from '../components/Item'
 
 class BasketModel extends RenderProp {
@@ -29,21 +30,23 @@ class BasketView extends React.Component {
     return (
       <div>
         <Header title="Basket" />
-        <ul>
-          {basket.map(({id, name, description, quantity = 0}) => (
-            <li key={id}>
-              <Item
-                id={id}
-                name={name}
-                description={description}
-                quantity={quantity}
-              />
-            </li>
-          ))}
-        </ul>
-        <span>
-          Total: <strong>£{total.toFixed(2)}</strong>
-        </span>
+        <Content>
+          <ul>
+            {basket.map(({id, name, description, quantity = 0}) => (
+              <li key={id}>
+                <Item
+                  id={id}
+                  name={name}
+                  description={description}
+                  quantity={quantity}
+                />
+              </li>
+            ))}
+          </ul>
+          <span>
+            Total: <strong>£{total.toFixed(2)}</strong>
+          </span>
+        </Content>
       </div>
     )
   }

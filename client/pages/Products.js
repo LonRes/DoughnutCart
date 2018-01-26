@@ -2,6 +2,7 @@ import React from 'react'
 import RenderProp from 'render-prop'
 import Store from '../Store'
 import Header from '../components/Header'
+import Content from '../components/Content'
 import Item from '../components/Item'
 
 class ProductsModel extends RenderProp {
@@ -23,19 +24,21 @@ class ProductsView extends React.Component {
     return (
       <div>
         <Header title="Products" />
-        <ul>
-          {products.map(({id, name, description, price}) => (
-            <li key={id}>
-              <Item
-                id={id}
-                name={name}
-                description={description}
-                price={price}
-                withLink
-              />
-            </li>
-          ))}
-        </ul>
+        <Content>
+          <ul>
+            {products.map(({id, name, description, price}) => (
+              <li key={id}>
+                <Item
+                  id={id}
+                  name={name}
+                  description={description}
+                  price={price}
+                  withLink
+                />
+              </li>
+            ))}
+          </ul>
+        </Content>
       </div>
     )
   }

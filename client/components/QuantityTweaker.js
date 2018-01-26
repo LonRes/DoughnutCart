@@ -45,6 +45,7 @@ class QuantityTweaker extends React.Component {
               onChange={updateUnflushed}
               key="input"
             />,
+            <br key="break" />,
             <button onClick={update} key="update">
               Update
             </button>,

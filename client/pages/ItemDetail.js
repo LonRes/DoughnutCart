@@ -3,6 +3,7 @@ import RenderProp from 'render-prop'
 import {withRouter} from 'react-router'
 import Store from '../Store'
 import Header from '../components/Header'
+import Content from '../components/Content'
 import Item from '../components/Item'
 
 class ItemDetailModel extends RenderProp {
@@ -34,16 +35,19 @@ class ItemDetailModel extends RenderProp {
 
 class ItemDetailView extends React.Component {
   render() {
-    const {id, name, description, price, quantity = 0} = this.props
+    const {id, name, description, price, media, quantity = 0} = this.props
     return (
       <div>
         <Header title={name} />
-        <Item
-          id={id}
-          description={description}
-          price={price}
-          quantity={quantity}
-        />
+        <Content>
+          <Item
+            id={id}
+            description={description}
+            price={price}
+            media={media}
+            quantity={quantity}
+          />
+        </Content>
       </div>
     )
   }
@@ -53,12 +57,13 @@ const ItemDetailModelWithRouter = withRouter(ItemDetailModel)
 
 const ItemDetail = () => (
   <ItemDetailModelWithRouter
-    render={({id, name, description, price, quantity}) => (
+    render={({id, name, description, price, media, quantity}) => (
       <ItemDetailView
         id={id}
         name={name}
         description={description}
         price={price}
+        media={media}
         quantity={quantity}
       />
     )}
